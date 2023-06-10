@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dinmover-backend
+  namespace: dinmover-user-redis
+spec:
+  selector:
+    matchLabels:
+      app: dinmover-backend
+  template:
+    metadata:
+      labels:
+        app: dinmover-backend
+    spec:
+      containers:
+        - name: dinmover-backend
+          image: franperceb/dinmover-web-app_image1
+          ports:
+            - containerPort: 8000
+
+
+  selector:
+    matchLabels:
+      app: redis
+      role: primary
+      tier: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: primary
+        tier: backend
+    spec:
+      containers:
+        - image: redis:latest
+          name: redis
+          ports:
+            - containerPort: 6379
+          resources: {}
+          volumeMounts:
+            - mountPath: /data
+              name: redis
+      restartPolicy: Always
+      volumes:
+        - name: redis
+          persistentVolumeClaim:
+            claimName: redis-primary
