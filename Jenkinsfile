@@ -1,13 +1,13 @@
 pipeline {
   environment {
     dockerimagename = "franperceb/dinmover-web-app_image1"
-    dockerImage = ""
+    dockerImage = "franperceb/dinmover-web-app_image1"
   }
   agent any
   stages {
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/Franperceb/jenkins-k8s-deployment.git'
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Java-Techie-jt/devops-automation']]])
       }
     }
     stage('Build image') {
