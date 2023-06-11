@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dinmover-backend-app
+  namespace: dinmover-user-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dinmover-backend-app
+  template:
+    metadata:
+      labels:
+        app: dinmover-backend-app
+    spec:
+      containers:
+        - name: dinmover-backend-app
+          image: franperceb/dinmover-web-app_image1:v1-dev
+          ports:
+            - containerPort: 8000
