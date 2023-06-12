@@ -32,7 +32,7 @@ pipeline {
     stage('Deploying DINMOVER backend container to Kubernetes') {
       steps {
         script {
-          kubernetesDeploy(configs: 'backend-deployment.yaml', 'backend-service.yaml' kubeconfigId: 'k8sconfigpwd')
+          kubernetesDeploy(configs: 'backend-deployment.yaml', 'backend-service.yaml', kubeconfigId: 'k8sconfigpwd')
         }
       }
     }
